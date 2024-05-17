@@ -25,9 +25,9 @@ function create() {
   read();
 }
 function read() {
-  let tas = "";
+  main.innerHTML = "";
   if (!tasks.length) {
-    t = "No tasks found";
+    main.innerHTML = "No tasks found";
   } else {
     tasks.forEach((task) => {
       const taskElement = document.createElement("div");
@@ -39,12 +39,27 @@ function read() {
           task.completed ? "checked" : ""
         } name='complete' onchange='toggleComplete(${task.id})'/> Completed?
         <br />
+        <div class="btn-c">
+        <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
+         
       `;
       main.appendChild(taskElement);
     });
   }
   //   main.innerHTML = t;
-  console.log(taskElement);
+  //console.log(taskElement);
+}
+
+function deleteTask(id) {
+  const tas = tasks.find((t) => t.id === id);
+  if (!tas) {
+    console.log("Task does not exist");
+  } else {
+    console.log("Task deleted successfully");
+    tasks = tas;
+  }
+  read();
+  //console.log(id);
 }
 
 function toggleComplete(taskId) {
